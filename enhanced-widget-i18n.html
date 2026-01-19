@@ -632,7 +632,7 @@
     // ============================================
     
     const CONFIG = {
-      API_URL: 'http://localhost:3000', // Your backend URL
+      API_URL: new URLSearchParams(window.location.search).get('apiUrl') || window.SPEEDY_API_URL || 'http://localhost:3000', // Your backend URL
       DEFAULT_LANGUAGE: 'bg', // Default language: 'bg' or 'en'
       ORDER_CONFIG: {
         weight: 1.5, // kg
@@ -673,6 +673,7 @@
         shipping_label: 'Доставка:',
         searching_offices: 'Търсене на офиси...',
         error_label: 'Грешка:',
+        city_required: 'Моля, въведете име на град',
         no_results: 'Не са намерени офиси',
         no_results_message: 'Не са намерени офиси в този град. Опитайте с друг град или проверете правописа.',
         select_office_first: 'Моля, първо изберете офис',
@@ -702,6 +703,7 @@
         shipping_label: 'Shipping:',
         searching_offices: 'Searching for offices...',
         error_label: 'Error:',
+        city_required: 'Please enter a city name',
         no_results: 'No Offices Found',
         no_results_message: 'No offices found in this city. Try another city or check your spelling.',
         select_office_first: 'Please select an office first',
@@ -850,7 +852,7 @@
       const city = cityInput.value.trim();
 
       if (!city) {
-        showError(t('error_label') + ' ' + 'Градът е задължителен');
+        showError(t('city_required'));
         return;
       }
 
@@ -881,7 +883,7 @@
 
       } catch (error) {
         console.error('Search error:', error);
-        showError(t('error_label') + ' ' + error.message);
+        showError(error.message);
       } finally {
         showLoading(false);
       }

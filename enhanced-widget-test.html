@@ -551,10 +551,10 @@
     // ============================================
     // CONFIGURATION
     // ============================================
-    const API_URL = 'http://localhost:3000'; // Update with your backend URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const API_URL = urlParams.get('apiUrl') || window.SPEEDY_API_URL || 'http://localhost:3000'; // Update with your backend URL
 
     // Order configuration from URL parameters or defaults
-    const urlParams = new URLSearchParams(window.location.search);
     const ORDER_CONFIG = {
       weight: parseFloat(urlParams.get('weight')) || 1,
       parcelsCount: parseInt(urlParams.get('parcels')) || 1,
